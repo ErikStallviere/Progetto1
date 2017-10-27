@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<body onload="showSL()">
+	<div style="text-align: center;width:100%;">
+		<h1>Form di inserimento dati</h1>
+		<form action="./salvataggio.php" method="post">
+			<h3>Dati Ragazzo</h3>
+			<!--Nome e Cognome del ragazzo che desidera iscriversi-->
+			<div>
+				<input type="text" placeholder="Nome" id="nome" name="nome" required onkeyup="text('nome')">
+				<input type="text" placeholder="Congome" id="cognome" name="cognome" required onkeyup="text('cognome')"> 
+			</div>
+			<br>
+			<!--Anno di nascita-->
+			<div>
+				Data Nascita: <input type="date" id="dataNascitaG" name="dataNascitaG" oninput="showMinorenne()" required>
+			</div>
+			<br>
+			<!--Sesso del/della giovane-->
+			<div>
+				<span>Sesso: </span>
+				Maschio<input type="radio" checked name="genere" value="M" required id="sesso">
+				Femmina<input type="radio" name="genere" value="M" required>
+			</div>
+			<br>
+			<!--Indirizzi e roba varia-->
+			<div>
+				<input type="text" placeholder="Indirizzo e numero" id="indirizzo" name="indirizzo" required>
+				<input type="text" placeholder="Paese" id="paese" name="paese" required onkeyup="text('paese')">
+				<input type="number" placeholder="CAP" id="cap" name="cap" required max="9999">
+			</div>
+			<br>
+			<div>
+				<input type="text" placeholder="Nazionalita" id="nazionalita" name="nazionalita" required onkeyup="text('nazionalita')">
+				<input type="text" placeholder="Cantone/Provincia" id="cantone" name="cantone" required onkeyup="text('cantone')">
+				<input type="text" placeholder="Nazione" id="nazione" name="nazione" required onkeyup="text('nazione')">
+			</div>
+			<br>
+			<div>
+				<input type="number" placeholder="Numero del cellulare" id="nCellulare" name="nCellulare" required max="0799999999">
+				<input type="number" placeholder="Numero di telefono" id="nTelefono" name="nTelefono" required max="0919999999">
+				<input type="email" placeholder="Email" id="email" name="email" required>
+			</div>
+
+			<div>
+				<!--Input che appaiono solo se il ragazzo è minorenne-->
+				<!--Dati e roba varia dell'autorità parentale-->
+				<span hidden="true" id="sLegale">
+					<h3>Dati tutore legale</h3>
+					<div>
+						<input type="text" placeholder="Nome genitore/tutore" id="nome2" name="nome2" onkeyup="text('nome2')">
+						<input type="text" placeholder="Congome genitore/tutore" id="cognome2" name="cognome2" onkeyup="text('cognome2')"> 
+					</div>
+					<br>
+					<div id="div">
+						<select id="genere" name="genere2">
+							<option></option>
+							<option>Madre</option>
+							<option>Padre</option>
+							<option>Tutore</option>
+						</select>
+					</div>
+					<br>
+					<div>
+						<input type="text" placeholder="Indirizzo e numero" id="indirizzo2" name="indirizzo2">
+						<input type="text" placeholder="Paese" id="paese2" name="paese2" onkeyup="text('paese2')">
+						<input type="number" placeholder="CAP" id="cap2" name="cap2" max="9999">
+					</div>
+					<div>
+						<input type="text" placeholder="Nazionalita" id="nazionalita2" name="nazionalita2" onkeyup="text('nazionalita2')">
+						<input type="text" placeholder="Cantone/Provincia" id="cantone2" name="cantone2" onkeyup="text('cantone2')">
+						<input type="text" placeholder="Nazione" id="nazione2" name="nazione2" onkeyup="text('nazione2')">
+					</div>
+					<br>
+					<div>
+						<input type="number" placeholder="Numero del cellulare" id="nCellulare2" name="nCellulare2" max="999999999">
+						<input type="number" placeholder="Numero di telefono" id="nTelefono2" name="nTelefono2" max="999999999">
+						<input type="email" placeholder="Email" id="email2" name="email2">
+					</div>
+				</span>
+			</div>
+			<!--Campi per il ragazzo-->
+			<h3>Vecchia scuola</h3>
+			<div>
+				<select id="tipoScuola" name="tipoScuola" required>
+					<option>Medie</option>
+					<option>Liceo</option>
+					<option>Apprendista</option>
+				</select>
+				<input type="text" placeholder="Acronimo scuola" id="acronimo" name="acronimo" required onkeyup="text('acronimo')">
+				<input type="text" placeholder="Sede" id="sedeV" name="sedeV" required onkeyup="text('sedeV')">
+				<input type="number" placeholder="Anno" id="anno" name="anno" required>
+			</div>
+			<h3>Situazione lavorativa attuale</h3>
+			<div>
+				Studente <input type="radio" name="lavoro" id="studente" checked onclick="showSL()" value="S" required>
+				Lavoro<input type="radio" name="lavoro" onclick="showSL()" value="L" required>
+			</div>
+			<!--Se è studente-->
+			<span hidden id="studente2">
+				<br>
+				<div>
+					<input type="text" placeholder="Scuola" id="scuola" name="scuola" required onkeyup="text('scuola')">
+					<input type="text" placeholder="Sede" id="sede" name="sede" required onkeyup="text('sede')">
+					<input type="number" placeholder="Anno" id="annoS" name="annoS" required>
+				</div>
+			</span>
+			<!--Per il lavoratore-->
+			<span hidden id="lavoratore">
+				<br>
+				<div>
+					<!--Che tipo di rapporto si ha con il lavoro (apprendista, professionista, ecc)-->
+					<select id="genereL" name="genereL" onchange="showYear()">
+						<option></option>
+						<option>Apprendista</option>
+						<option>Professionista</option>
+						<option>Indipendente</option>
+					</select>
+					<input type="text" placeholder="Professione" id="professione" name="professione" onkeyup="text('professione')">
+					<span hidden id="appAnno">
+						<input type="number" placeholder="Anno" id="annoA" name="annoA">
+					</span>
+				</div>
+				<!--Se è un'apprendista l'anno che si ha frequentato-->
+				<span hidden id="appAnno">
+					<div>
+						<input type="number" placeholder="Anno" id="annoA" name="annoA">
+					</div>
+				</span>
+			</span>
+			<br>
+			<!--Osservazioni-->
+			<div>
+				<textarea row="100" cols="100" placeholder="Ossrvazioni varie" id="oss" name="oss"></textarea>
+			</div>
+			<br>
+			<div>
+				<span hidden id="invio">
+					<input type="submit" value="Invia dati" disabled id="submit">
+				</span>
+				<span id="controlloS">
+					<button id="controllo" onclick="stampo()">Controllo</button>
+				</span>
+			</div>
+		</form>
+	</div>
+	<span hidden id="dati">
+		<br>
+		<p id="finale"></p>
+	</span>
+</body>
+<script type="text/javascript">
+	//Variabili per il ragazzo
+	var annoR;
+	var nomeR;
+	var cognomeR;
+	var sesso;
+	var indirizzoR;
+	var paeseR;
+	var capR;
+	var cantoneR;
+	var nazionalitaR;
+	var nazioneR;
+	var nCellulareR;
+	var nTelefonoR;
+	var emailR;
+	//--------------------------
+	var scuolaV;
+	var sedeV;
+	var aconimoV;
+	var anno;
+	//--------------------------
+	var tipoLavoro;
+	//studente check
+	var studente;
+	var scuola;
+	var sede;
+	var annoS;
+	//apprendista
+	var annoA;
+	var professione;
+	//Variabili per il tutore legale
+	var nomeT;
+	var cognomeT;
+	var tipoDiTutore;
+	var indirizzoT;
+	var paeseT;
+	var capT;
+	var cantoneT;
+	var nazionalitaT;
+	var nazioneT;
+	var nCellulareT;
+	var nTelefonoT;
+	var emailT;
+	//-------------------------
+	var stringa = "";
+
+	//Funzione per la stampa dei dati del tutore legale
+	function showMinorenne(){
+		annoR = new Date(document.getElementById("dataNascitaG").value);
+		var oggi = new Date();
+		var span = document.getElementById("sLegale");
+		//Dati che avranno il require se è minorenne
+		nomeT = document.getElementById("nome2");
+		cognomeT = document.getElementById("cognome2");
+		tipoDiTutore = document.getElementById("genere");
+		indirizzoT = document.getElementById("indirizzo2");
+		paeseT = document.getElementById("paese2");
+		cantoneT = document.getElementById("cantone2");
+		nazionalitaT = document.getElementById("nazionalita2");
+		nazioneT = document.getElementById("nazione2");
+		nCellulareT = document.getElementById("nCellulare2");
+		nTelefonoT = document.getElementById("nTelefono2");
+		emailT = document.getElementById("email2");
+		capT = document.getElementById("cap2");
+
+		if(annoR.getFullYear() > oggi.getFullYear() - 18){
+			span.hidden = false;
+			//Inserimento require se è minorenne
+			nomeT.required = true;
+			cognomeT.required = true;
+			tipoDiTutore.required = true;
+			indirizzoT.required = true;
+			paeseT.required = true;
+			capT.required = true;
+			cantoneT.required = true;
+			nazionalitaT.required = true;
+			nazioneT.required = true;
+			nCellulareT.required = true;
+			nTelefonoT.required = true;
+			emailT.required = true;
+		}
+		else{
+			span.hidden = true;
+
+			nomeT.required = false;
+			cognomeT.required = false;
+			tipoDiTutore.required = false;
+			indirizzoT.required = false;
+			paeseT.required = false;
+			capT.required = false;
+			cantoneT.required = false;
+			nazionalitaT.required = false;
+			nazioneT.required = false;
+			nCellulareT.required = false;
+			nTelefonoT.required = false;
+			emailT.required = false;
+		}
+	}
+
+	//Funzione per la stampa dell'anno dell'apprendista
+	function showYear(){
+		tipoLavoro = document.getElementById("genereL").value;
+		var span = document.getElementById("appAnno");
+		annoA = document.getElementById("annoA");
+
+		if(tipoLavoro == "Apprendista"){
+			span.hidden = false;
+			annoA.required = true;
+		}
+		else{
+			span.hidden = true;
+			annoA.required = false;
+		}
+	}
+	//Funzione per la stampa dei dati dell'apprendista o del studente
+	function showSL(){
+		studente = document.getElementById("studente").checked;
+		var span = document.getElementById("studente2");
+		var span2 = document.getElementById("lavoratore");
+		scuola = document.getElementById("scuola");
+		sede = document.getElementById("sede");
+		annoS = document.getElementById("annoS");
+
+		if(studente == true){
+			span.hidden = false;
+			span2.hidden = true;
+			scuola.required = true;
+			sede.required = true;
+			annoS.required = true;
+		}
+		else{
+			span.hidden = true;
+			span2.hidden = false;
+			scuola.required = false;
+			sede.required = false;
+			annoS.required = false;
+		}
+	}
+
+	//Metodo che controlla che alcuni campi di testo non abbiano numeri
+	function text(id){
+		var val = document.getElementById(id).value;
+		var pos = val.search(/[0-9]/);
+
+		if(pos != -1){
+			pos+= 1;
+			alert("Hai inserito un numero nel campo corrente, nella posizione " + pos);
+		}
+	}
+
+	function controllo(){
+		datiBase();
+
+		if(annoR.getFullYear() > (oggi.getFullYear() - 18)){
+			annoR = document.getElementById("dataNascitaG").value;
+
+			controlloSesso();
+			controlloLavoro();
+			//Variabili per il tutore legale
+			nomeT = document.getElementById("nome2").value;
+			cognomeT = document.getElementById("cognome2").value;
+			tipoDiTutore = document.getElementById("genere").value;
+			indirizzoT = document.getElementById("indirizzo2").value;
+			paeseT = document.getElementById("paese2").value;
+			cantoneT = document.getElementById("cantone2").value;
+			nazionalitaT = document.getElementById("nazionalita2").value;
+			nazioneT = document.getElementById("nazione2").value;
+			nCellulareT = document.getElementById("nCellulare2").value;
+			nTelefonoT = document.getElementById("nTelefono2").value;
+			emailT = document.getElementById("email2").value;
+			capT = document.getElementById("cap2").value;
+		}
+		else{
+			annoR = document.getElementById("dataNascitaG").value;
+			controlloSesso();
+			controlloLavoro();
+		}
+	}
+	//Per la variabile del sesso
+	function controlloSesso(){
+		sesso = document.getElementById("sesso").checked;
+		if(sesso == true){
+			sesso = "Maschio";
+		}
+		else{
+			sesso = "Femmina";
+		}
+	}
+	//Lavoro attuale
+	function controlloLavoro(){
+		studente = document.getElementById("studente").checked;
+		tipoLavoro = document.getElementById("genereL").value;
+		if(studente == true){
+			studente = "Studente";
+			scuola = document.getElementById("scuola").value;
+			sede = document.getElementById("sede").value;
+			annoS = document.getElementById("annoS").value;
+		}
+		else{
+			studente = "Lavoratore";
+			if(tipoLavoro == "Apprendista"){
+				annoA = document.getElementById("annoA").value;
+			}
+			professione = document.getElementById("professione").value;
+		}
+	}
+	//Ottenimento Dati di base
+	function datiBase(){
+		//Dati personali del giovane
+		nomeR = document.getElementById("nome").value;
+		cognomeR = document.getElementById("cognome").value;
+		indirizzoR = document.getElementById("indirizzo").value;
+		paeseR = document.getElementById("paese").value;
+		capR = document.getElementById("cap");
+		cantoneR = document.getElementById("cantone").value;
+		nazionalitaR = document.getElementById("nazionalita").value;
+		nazioneR = document.getElementById("nazione").value;
+		nCellulareR = document.getElementById("nCellulare").value;
+		nTelefonoR = document.getElementById("nTelefono").value;
+		emailR = document.getElementById("email").value;
+		//Dati vecchia scuola
+		scuolaV = document.getElementById("tipoScuola").value;
+		sedeV = document.getElementById("sedeV").value;
+		aconimoV = document.getElementById("acronimo").value;
+		anno = document.getElementById("anno").value;
+	}
+	//Metodo che stampa tutti i dati
+	function stampa(){
+		controllo();
+		stringa += nomeR + ", ";
+		stringa += cognomeR + ", ";
+		stringa += annoR + ", ";
+		stringa += sesso + ", ";
+		stringa += indirizzoR + ", ";
+		stringa += paeseR + ", ";
+		stringa += capR + ", ";
+		stringa += cantoneR + ", ";
+		stringa += nazionalitaR + ", ";
+		stringa += nazioneR + ", ";
+		stringa += nCellulareR + ", ";
+		stringa += nTelefonoR + ", ";
+		stringa += emailR + ", ";
+		stringa += scuolaV + ", ";
+		stringa += aconimoV + ", ";
+		stringa += sedeV + ", ";
+		stringa += anno + ", ";
+		stringa += tipoLavoro + ", ";
+		stringa += studente + ", ";
+		stringa += scuola + ", ";
+		stringa += sede + ", ";
+		stringa += annoS + ", ";
+		stringa += professione + ", ";
+		stringa += annoA + ", ";
+		stringa += nomeT + ", ";
+		stringa += cognomeT + ", ";
+		stringa += tipoDiTutore + ", ";
+		stringa += indirizzoT + ", ";
+		stringa += paeseT + ", ";
+		stringa += capT + ", ";
+		stringa += cantoneT + ", ";
+		stringa += nazionalitaT + ", ";
+		stringa += nazioneT + ", ";
+		stringa += nCellulareT + ", ";
+		stringa += nTelefonoT + ", ";
+		stringa += emailT;
+		document.getElementById("finale").innerHTML = stringa;
+		document.getElementById("controlloS").hidden = true;
+		document.getElementById("invio").hidden = false;
+		document.getElementById("submit").disable = false;
+	}
+</script>
+</html>
